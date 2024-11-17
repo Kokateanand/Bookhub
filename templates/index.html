@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smooth Circular Carousel</title>
+    <link rel="stylesheet" href="static/css/home.css">
+</head>
+
+<section>
+
+    <body>
+        <div class="carousel-container">
+            <div class="carousel">
+                <!-- Carousel Content -->
+                <div class="carousel-content">
+                    <h1 class="carousel-title">Meet your next favorite book</h1>
+                    <p class="carousel-description">A cozy haven for book lovers, offering a curated selection of genres
+                        and timeless classics. Find your next great read at Bookhub</p>
+                </div>
+
+                <!-- Carousel Track -->
+                <div class="carousel-track">
+                    <div class="carousel-item">
+                        <img src="static/img/home/h1.jpg" alt="Image 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="static/img/home/h2.jpg" alt="Image 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="static/img/home/h4.jpg" alt="Image 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="static/img/home/h1.jpg" alt="Image 1"> <!-- Duplicate of first image -->
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<section>
+
+    <div class="Author_details">
+
+        <h1 class="Author">Featured Author</h1>
+
+        <p class="Author_des">
+            "Spotlight on literary brilliance! Discover the life, works, and inspirations of our Featured Author, whose
+            stories captivate and inspire readers worldwide."
+        </p>
+
+    </div>
+</section>
+
+
+
+
+
+
+<script src="static/js/home.js"></script>
+</body>
+
+</html>
+
+
+{% endblock %}
