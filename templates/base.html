@@ -21,10 +21,14 @@
         </div>
         <div class="nav-content">
             <ul class="menu" id="nav-menu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/About">About</a></li>               
-                <li><a href="/Contact">Contact</a></li>
-                <li><a href="/Shop">shop</a></li>
+                {% url "home" as home %}
+                <li class= "{% if request.path == home %} active {% endif %}"><a href="{% url 'home' %}">Home</a></li>
+                {% url "About" as About_url %}
+                <li class= "{% if request.path == About_url %} active {% endif %}"><a href="{% url 'About' %}">About</a></li>  
+                {% url "Contact" as Contact %}             
+                <li class= "{% if request.path == Contact %} active {% endif %}"><a href="{% url 'Contact' %}">Contact</a></li>
+                {% url "Shop" as Shop %}  
+                <li class= "{% if request.path == Shop %} active {% endif %}"><a href="{% url 'Shop' %}">shop</a></li>
             </ul>
             <div class="auth-buttons" id="nav-buttons">
                 <a href="#" class="login-btn">Login</a>
@@ -48,10 +52,10 @@
                 </div>
 
                 <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <li><a href="/About">About</a></li>  
-                    <a href="/Contact">Contact Us</a>
+                    <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+                    <a href="{% url 'terms_of_service' %}">Terms of Service</a>
+                    <a href="{% url 'About' %}">About</a>  
+                    <a href="{% url 'Contact' %}">Contact Us</a>
                 </div>
 
                 <div class="footer-social">
