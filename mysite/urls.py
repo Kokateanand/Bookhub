@@ -20,6 +20,8 @@ from django.urls import path, include
 
 urlpatterns = [
      path('bookhub-admin/', admin.site.urls),
-     path("", include('myapp.urls'))
+     path("", include('myapp.urls')),
+     path('adminpanel/', include('adminpanel.urls')),
+     path("user/", include('user.urls'))
      
 ]

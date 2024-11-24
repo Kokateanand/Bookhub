@@ -1,0 +1,64 @@
+{% extends 'admin_panel_base.html' %}
+
+{% block content %}
+<h1>Customers Management</h1>
+<button class="add-btn" onclick="document.getElementById('addCustomerForm').style.display='block'">Add New Customer</button>
+
+<div id="addCustomerForm" class="form" style="display: none;">
+    <form method="post">
+        {% csrf_token %}
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name" required>
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" name="last_name" required>
+
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" required>
+
+        <label for="city">City:</label>
+        <input type="text" name="city" required>
+
+        <label for="country">Country:</label>
+        <input type="text" name="country" required>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" name="confirm_password" required>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+
+        <button type="submit">Save</button>
+        <button type="reset" onclick="document.getElementById('addCustomerForm').style.display='none'">Cancel</button>
+    </form>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Full Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ customer.first_name }} {{ customer.last_name }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.email }}</td>
+            <td>
+                <button>Update</button>
+                <button>Delete</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

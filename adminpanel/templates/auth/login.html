@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="static/css/login.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="login-box">
+            <h2>Welcome Back! Please Log In</h2>
+
+            <hr>
+
+            <div id="login-username-password" class="login-form">
+                <h3>Login with Username/Password</h3>
+                <form method="POST" action="php/login.php">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <label>
+                        <input type="checkbox" name="remember"> Remember Me
+                    </label>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+                <a href="#">Forgot Password?</a>
+                <a href="signup.html">Create an Account</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="assets/loginscript.js"></script>
+</body>
+</html>

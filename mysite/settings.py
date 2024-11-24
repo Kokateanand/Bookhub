@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +32,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    'adminpanel',
+    'user',
+    # 'django.contrib.staticfiles',
+
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    #  'adminpanel.middleware.SuperAdminCheckMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -128,4 +137,24 @@ STATIC_URL = 'static/'
 #Added Manually
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static" ]
+    BASE_DIR / "static"
+      ]
+
+
+# STATICFILES = [
+#     BASE_DIR / "static"
+# ]
+
+AUTHENTICATION_BACKENDS=[
+    'django.contrib.auth.backends.ModelBackend'
+]
+
+# AUTH_USER_MODEL = 'user.Customuser'
+# MEDIA_URL = '/media/'  # URL for accessing media files in development
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Path to the media directory
+
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+
+
