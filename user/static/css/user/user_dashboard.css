@@ -1,0 +1,145 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Black background */
+    color: #fff; /* White text */
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #1f1f1f; /* Darker black background for navbar */
+    padding: 10px;
+    text-align: center;
+}
+
+.navbar a {
+    color: #ffffff;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.navbar a:hover {
+    background-color: #2563EB; /* Hover effect with secondary color */
+    color: #fff;
+}
+
+/* Main Content */
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #2a2a2a; /* Dark background for cards */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 16px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Button */
+.btn {
+    background-color: #2563EB; /* Blue button color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* Profile Page */
+.profile-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.profile-card {
+    background-color: #2a2a2a;
+    width: 48%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+/* Shopping Page */
+.book-card {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 15px;
+    width: 200px;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.book-card img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.book-card p {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.book-card:hover {
+    transform: scale(1.05);
+}
+
+/* Product Detail */
+.product-detail {
+    background-color: #2a2a2a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-detail h3 {
+    font-size: 24px;
+}
+
+.product-detail p {
+    margin-top: 10px;
+    font-size: 16px;
+}

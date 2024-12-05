@@ -1,0 +1,119 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home_base.css' %}">
+    {% comment %} <link rel="stylesheet" href="home_base.css"> {% endcomment %}
+    <title>{% block title %} | All in One Bookshop{% endblock title %} </title>
+</head>
+<body>
+
+
+    <header class="navbar">
+        <div class="logo">
+            <a href="{% url 'home:home_page' %}">Bookhub</a>
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="nav-content">
+            <ul class="menu" id="nav-menu">
+                {% url "home:home_page" as home_page %}
+                <li class= "{% if request.path == home_page %} active {% endif %}"><a href="{% url 'home:home_page' %}">Home</a></li>
+                {% url "About" as About_url %}
+                <li class= "{% if request.path == About_url %} active {% endif %}"><a href="{% url 'home:About' %}">About</a></li>  
+                {% url "Contact" as Contact %}             
+                <li class= "{% if request.path == Contact %} active {% endif %}"><a href="{% url 'home:Contact' %}">Contact</a></li>
+                {% url "Shop" as Shop %}  
+                <li class= "{% if request.path == Shop %} active {% endif %}"><a href="{% url 'home:Shop' %}">shop</a></li>
+                {% url "dashboard" as dashboard %}  
+                <li class= "{% if request.path == dashboard %} active {% endif %}"><a href="{% url 'adminpanel:dashboard' %}">dashboard</a></li>
+            </ul>
+            <div class="auth-buttons" id="nav-buttons">
+                <a href="{% url 'user:login' %}" class="login-btn">Login</a>
+                <a href="{% url 'user:register' %}" class="signup-btn">Sign Up</a>
+            </div>
+        </div>
+
+    </header>
+
+
+
+
+    {% block body %}{% endblock  %}
+{% comment %} <div style="height: 100vh; background-color:black;"></div> {% endcomment %}
+
+
+
+
+
+
+
+
+    <section>
+        <footer class="footer">
+            <div class="footer-container">
+
+                <div class="footer-brand">
+                    <div class="logo">
+                        <a href="{% url 'home:home_page' %}">Bookhub</a>
+                    </div>
+                    <p>Connect the world, securely and privately.</p>
+                </div>
+
+                <div class="footer-links">
+                    <a href="{% url 'home:privacy_policy' %}">Privacy Policy</a>
+                    <a href="{% url 'home:terms_of_service' %}">Terms of Service</a>
+                    <a href="{% url 'home:About' %}">About</a>  
+                    <a href="{% url 'home:Contact' %}">Contact Us</a>
+                </div>
+
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 ChatHub. All rights reserved.</p>
+            </div>
+        </footer>
+    </section>
+
+
+    <div id="cursor" class="cursor"></div>
+
+
+    <script src="home_base.js"></script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

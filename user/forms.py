@@ -1,5 +1,5 @@
 from django import forms
-from adminpanel.models import Customer
+from adminpanel.models import Customer 
 
 class RegisterForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
@@ -22,3 +22,6 @@ class RegisterForm(forms.ModelForm):
 class LoginForm(forms.Form):
     identifier = forms.CharField(label="Email or Mobile Number")
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+

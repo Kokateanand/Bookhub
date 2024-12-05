@@ -1,0 +1,36 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %}Add Book{% endblock %}
+{% block content %}
+<h1>Add New Book</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="name">Book Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="category">Category:</label>
+    <select id="category" name="category">
+        {% for category in categories %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="author">Author:</label>
+    <select id="author" name="author">
+        {% for author in authors %}
+        <option value="{{ author.id }}">{{ author.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="image">Image:</label>
+    <input type="file" id="image" name="image">
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description"></textarea>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" step="0.01" required>
+
+    <button type="submit">Save</button>
+    <button type="reset">Reset</button>
+</form>
+{% endblock %}

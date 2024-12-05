@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Page</title>
+    <link rel="stylesheet" href="{% static 'css/user/user_dashboard.css' %}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'shopping_page' %}">Shopping</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <!-- Shopping Content -->
+    <div class="container">
+        <h2>Explore Our Books</h2>
+        <div class="card">
+            <h3>Available Books</h3>
+            <div class="book-container">
+                {% for book in books %}
+                    <div class="book-card">
+                        <img src="{{ book.image.url }}" alt="{{ book.name }}">
+                        <p>{{ book.name }}</p>
+                        <p>Price: ${{ book.price }}</p>
+                        <a href="{% url 'product_detail' book.id %}" class="btn">View Details</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %}Customers{% endblock %}
+{% block content %}
+<h1>Customers</h1>
+<a href="{% url 'adminpanel:add_customer' %}" class="add-button">Add New Customer</a>
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ customer.first_name }} {{ customer.last_name }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.email }}</td>
+            <td>
+                <a href="{% url 'adminpanel:update_customer' customer.id %}" class="button">Update</a>
+                {% comment %} <a href="{% url 'adminpanel:delete_customer' customer.id %}" class="delete">Delete</a> {% endcomment %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

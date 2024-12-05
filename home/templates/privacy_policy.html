@@ -1,0 +1,63 @@
+{% extends "home_base.html" %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock title %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Bookhub</title>
+  {% comment %} <link rel="stylesheet" href="static/css/privacy_styles.css"> {% endcomment %}
+  <link rel="stylesheet" href="{% static 'css/privacy_styles.css' %}">
+</head>
+<body>
+  <section class="privacy-policy">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p>
+        At <strong>Bookhub</strong>, we value your privacy and are committed to protecting your personal information. 
+        This Privacy Policy outlines how we collect, use, and safeguard your data when you interact with our platform.
+      </p>
+      <h2>Information We Collect</h2>
+      <ul>
+        <li>Personal details such as name, email address, and phone number when you register or place an order.</li>
+        <li>Payment information securely processed through trusted payment gateways.</li>
+        <li>Browsing behavior and preferences to improve your user experience.</li>
+      </ul>
+      <h2>How We Use Your Information</h2>
+      <ul>
+        <li>To process your orders and ensure prompt delivery.</li>
+        <li>To personalize your experience and recommend books you might love.</li>
+        <li>To communicate with you regarding updates, promotions, or support inquiries.</li>
+      </ul>
+      <h2>Data Security</h2>
+      <p>
+        We use advanced encryption and secure protocols to protect your data. Your information is never shared 
+        with third parties without your explicit consent, except as required by law.
+      </p>
+      <h2>Your Rights</h2>
+      <ul>
+        <li>Access and update your personal information at any time.</li>
+        <li>Request deletion of your data, subject to legal obligations.</li>
+        <li>Opt-out of marketing communications.</li>
+      </ul>
+      <h2>Changes to This Policy</h2>
+      <p>
+        Bookhub reserves the right to update this Privacy Policy as needed. We encourage you to review it regularly
+        to stay informed about how we are protecting your data.
+      </p>
+      <p>
+        For questions or concerns about this Privacy Policy, please contact us at <a href="mailto:support@bookhub.com">support@bookhub.com</a>.
+      </p>
+    </div>
+  </section>
+</body>
+</html>
+
+
+
+{% endblock %}

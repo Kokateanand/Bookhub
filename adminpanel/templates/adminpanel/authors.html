@@ -1,0 +1,31 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %}Authors{% endblock %}
+{% block content %}
+<h1>Authors</h1>
+<a href="{% url 'adminpanel:add_author' %}" class="add-button">Add New Author</a>
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Profile</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for author in authors %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><img src="{{ author.profile.url }}" alt="Profile" style="height: 50px;"></td>
+            <td>{{ author.name }}</td>
+            <td>{{ author.email }}</td>
+            <td>
+                <a href="{% url 'adminpanel:update_author' author.id %}" class="button">Update</a>
+                {% comment %} <a href="{% url 'adminpanel:delete_author' author.id %}" class="delete">Delete</a> {% endcomment %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

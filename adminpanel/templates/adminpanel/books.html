@@ -1,0 +1,29 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %}Books{% endblock %}
+{% block content %}
+<h1>Books</h1>
+<a href="{% url 'adminpanel:add_book' %}" class="add-button">Add New Book</a>
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><img src="{{ book.image.url }}" alt="Book Image"></td>
+            <td>{{ book.name }}</td>
+            <td>
+                <a href="{% url 'adminpanel:update_book' book.id %}">Update</a>
+                {% comment %} <a href="{% url 'adminpanel:delete_book' book.id %}" class="delete">Delete</a> {% endcomment %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

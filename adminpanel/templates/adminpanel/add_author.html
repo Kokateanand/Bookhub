@@ -1,0 +1,22 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %}Add Author{% endblock %}
+{% block content %}
+<h1>Add New Author</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="name">Author Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="profile">Profile Picture:</label>
+    <input type="file" id="profile" name="profile">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description"></textarea>
+
+    <button type="submit">Save</button>
+    <button type="reset">Reset</button>
+</form>
+{% endblock %}

@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1v*y5dm0evys3ha$)*hl&9%mia!cd5eo@!268_@67scifg40!9'
+SECRET_KEY = 'django-insecure-1u1m9rda%*b3-*h1v+m%yn3f1)os=7+@3i(3y3$1*1snpai=m!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,18 +31,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-
-    'adminpanel',
-    'user',
-    # 'django.contrib.staticfiles',
-
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
+     # My apps
+    'home',
+    'user',
+    'adminpanel',
 ]
 
 MIDDLEWARE = [
@@ -54,8 +53,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-    #  'adminpanel.middleware.SuperAdminCheckMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -63,7 +60,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [BASE_DIR / 'home/templates', BASE_DIR / 'user/templates', BASE_DIR / 'adminpanel/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,40 +118,20 @@ USE_I18N = True
 USE_TZ = True
 
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Added Manualy
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'home/static', BASE_DIR / 'user/static', BASE_DIR / 'adminpanel/static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = 'static/'
-
-#Added Manually
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-      ]
-
-
-# STATICFILES = [
-#     BASE_DIR / "static"
-# ]
-
-AUTHENTICATION_BACKENDS=[
-    'django.contrib.auth.backends.ModelBackend'
-]
-
-# AUTH_USER_MODEL = 'user.Customuser'
-# MEDIA_URL = '/media/'  # URL for accessing media files in development
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Path to the media directory
-
-
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-
-
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

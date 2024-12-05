@@ -1,40 +1,70 @@
-# views.py
-
-from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from adminpanel.models import Customer
-from user.forms import RegisterForm, LoginForm
-from django.core.exceptions import ValidationError
+from adminpanel.models import Customer, Book, PurchaseHistory, Warehouse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import check_password, make_password
+from django.core.exceptions import ObjectDoesNotExist
 
+@login_required
+def dashboard_view(request):
+    customer_id = request.session.get('customer_id')
+    if not customer_id:
+        return redirect('login')
+
+    try:
+        customer = Customer.objects.get(id=customer_id)
+        purchase_history = PurchaseHistory.objects.filter(customer=customer)
+        books = Book.objects.all()
+        return render(request, 'user_admin/dashboard.html', {
+            'customer': customer,
+            'purchase_history': purchase_history,
+            'books': books,
+        })
+    except ObjectDoesNotExist:
+        messages.error(request, "User not found.")
+        return redirect('login')
+
+
+@login_required
+def shopping_page_view(request):
+    books = Book.objects.all()
+    return render(request, 'user_admin/shopping_page.html', {
+        'books': books,
+    })
+
+
+@login_required
+def product_detail_view(request, book_id):
+    try:
+        book = Book.objects.get(id=book_id)
+        warehouses = Warehouse.objects.filter(books__id=book_id)
+        return render(request, 'user_admin/product_detail.html', {
+            'book': book,
+            'warehouses': warehouses,
+        })
+    except ObjectDoesNotExist:
+        messages.error(request, "Book not found.")
+        return redirect('user_admin/shopping_page')
 
 
 def login_view(request):
     if request.method == 'POST':
-        login_input = request.POST.get('login_input')  # Could be email or mobile number
+        login_input = request.POST.get('login_input')
         password = request.POST.get('password')
 
         try:
-            user = Customer.objects.get(phone=login_input)  # Try finding by phone first
+            customer = Customer.objects.get(phone=login_input) if login_input.isdigit() else Customer.objects.get(email=login_input)
+            if check_password(password, customer.password):
+                request.session['customer_id'] = customer.id
+                messages.success(request, "Login successful!")
+                return redirect('dashboard')
+            else:
+                messages.error(request, "Incorrect password.")
         except Customer.DoesNotExist:
-            try:
-                user = Customer.objects.get(email=login_input)  # If not found, try finding by email
-            except Customer.DoesNotExist:
-                messages.error(request, "No account found with that email or mobile.")
-                return render(request, 'auth/login.html')
-
-        # Check if password matches
-        if user.password == password:  # You may want to hash the password in a real app
-            login(request, user)  # Log the user in
-            messages.success(request, "Login successful!")
-            return redirect('home')  # Redirect to home or dashboard
-        else:
-            messages.error(request, "Incorrect password.")
-            return render(request, 'auth/login.html')
+            messages.error(request, "No account found with that email or mobile number.")
 
     return render(request, 'auth/login.html')
 
-    # return render(request, 'auth/login.html', {'form': form})
 
 def register_view(request):
     if request.method == 'POST':
@@ -74,3 +104,13 @@ def register_view(request):
         return redirect('login')
 
     return render(request, 'auth/register.html')
+
+
+
+def logout_view(request):
+    request.session.flush()
+    messages.success(request, "Logged out successfully.")
+    return redirect('login')
+
+
+

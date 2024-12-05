@@ -1,0 +1,45 @@
+{% extends "home_base.html" %}
+{% load static %}
+
+{% block title %}About Us{% endblock title %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% comment %} <link rel="stylesheet" href="static/css/about.css"> {% endcomment %}
+  <link rel="stylesheet" href="{% static 'css/about.css' %}">
+</head>
+<body>
+  <section class="about-us">
+    <div class="container">
+      <h1>About Us</h1>
+      <p>
+        Welcome to <strong>Bookhub</strong>, your ultimate destination for books that inspire, entertain, and educate.
+        With multiple warehouses strategically located, we are committed to bringing an extensive collection of titles
+        closer to you, ensuring faster delivery and seamless access to your favorite reads.
+      </p>
+      <p>
+        At Bookhub, we believe that every book has the power to ignite imagination, spark ideas, and transform lives.
+        Our mission is to create a haven for book lovers by offering a vast and diverse selection, catering to every
+        reader’s unique taste and curiosity.
+      </p>
+      <p>
+        Whether you're exploring timeless classics, discovering the latest bestsellers, or delving into niche genres,
+        Bookhub is here to make your literary journey smooth and enjoyable. With our state-of-the-art logistics and a
+        passion for books, we bridge the gap between stories and readers, one page at a time.
+      </p>
+      <p>
+        Join us in celebrating the love of reading and experience the joy of discovering your next great story with
+        <strong>Bookhub</strong>.
+      </p>
+    </div>
+  </section>
+</body>
+</html>
+
+
+{% endblock %}

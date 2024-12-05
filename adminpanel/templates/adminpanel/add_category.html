@@ -1,0 +1,16 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %}Add Category{% endblock %}
+{% block content %}
+<h1>Add New Category</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="name">Category Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="description">Category Description:</label>
+    <textarea id="description" name="description"></textarea>
+
+    <button type="submit">Save</button>
+    <button type="reset">Reset</button>
+</form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %}Add Warehouse{% endblock %}
+{% block content %}
+<h1>Add New Warehouse</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="name">Warehouse Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location">
+
+    <button type="submit">Save</button>
+    <button type="reset">Reset</button>
+</form>
+{% endblock %}

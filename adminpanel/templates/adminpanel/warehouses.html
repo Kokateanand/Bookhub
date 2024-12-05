@@ -1,0 +1,29 @@
+{% extends 'adminpanel/base.html' %}
+{% block title %}Warehouses{% endblock %}
+{% block content %}
+<h1>Warehouses</h1>
+<a href="{% url 'adminpanel:add_warehouse' %}" class="add-button">Add New Warehouse</a>
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Warehouse Name</th>
+            <th>Location</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for warehouse in warehouses %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ warehouse.name }}</td>
+            <td>{{ warehouse.location }}</td>
+            <td>
+                <a href="{% url 'adminpanel:update_warehouse' warehouse.id %}" class="button">Update</a>
+                {% comment %} <a href="{% url 'adminpanel:delete_warehouse' warehouse.id %}" class="delete">Delete</a> {% endcomment %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
