@@ -69,7 +69,7 @@ class CustomerBackend(BaseBackend):
 
 
 
-@login_required
+# @login_required
 def dashboard_view(request):
     customer_id = request.session.get('customer_id')
     if not customer_id:
@@ -92,16 +92,18 @@ def dashboard_view(request):
 
 # @auth
 def shop_view(request):
-    return render(request, 'user_admin/shopping_page.html')
+    books = Book.objects.all()  # Fetch all books
+    return render(request, 'user_admin/shopping_page.html', {'books': books})
+    # return render(request, 'user_admin/shopping_page.html')
 
-# def shopping_page_view(request):
-#     books = Book.objects.all()
-#     return render(request, 'user_admin/shopping_page.html', {
-#         'books': books,
-#     })
+def shopping_page_view(request):
+    books = Book.objects.all()
+    return render(request, 'user_admin/shopping_page.html', {
+        'books': books,
+    })
 
 
-@login_required
+# @login_required
 def product_detail_view(request, book_id):
     try:
         book = Book.objects.get(id=book_id)

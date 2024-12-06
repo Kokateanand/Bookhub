@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,26 +11,29 @@
 
     <!-- Navbar -->
     <div class="navbar">
-        <a href="{% url 'dashboard' %}">Dashboard</a>
-        <a href="{% url 'profile' %}">Profile</a>
-        <a href="{% url 'shopping_page' %}">Shopping</a>
-        <a href="{% url 'logout' %}">Logout</a>
+        {% comment %} <a href="{% url 'user:dashboard' %}">Dashboard</a> {% endcomment %}
+        {% comment %} <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'shopping_page' %}">Shopping</a>{% endcomment %}
+        {% comment %} <a href="{% url 'user:logout' %}">Logout</a>  {% endcomment %}
     </div>
 
     <!-- Product Detail Content -->
     <div class="container">
         <div class="product-detail">
+            <img src="{{ book.image.url }}" style="width=50vw; " alt="{{ book.name }} ">
             <h3>{{ book.name }}</h3>
             <p>{{ book.description }}</p>
-            <p>Price: ${{ book.price }}</p>
+            <p>Price: ₹{{ book.price }}</p>
 
             <h3>Available Warehouses</h3>
             <ul>
                 {% for warehouse in warehouses %}
+
+
                     <li>{{ warehouse.name }} - {{ warehouse.location }} - {% if warehouse.book_in_stock %}In Stock{% else %}Out of Stock{% endif %}</li>
                 {% endfor %}
             </ul>
-
+<br>
             <a href="#" class="btn">Add to Cart</a>
         </div>
     </div>

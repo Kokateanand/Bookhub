@@ -11,10 +11,10 @@
 
     <!-- Navbar -->
     <div class="navbar">
-        {% comment %} <a href="{% url 'dashboard' %}">Dashboard</a>
-        <a href="{% url 'profile' %}">Profile</a>
-        <a href="{% url 'shopping_page' %}">Shopping</a>
-        <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
+       {% comment %} <a href="{% url 'user:dashboard' %}">Dashboard</a> {% endcomment %}
+        {% comment %} <a href="{% url 'user:profile' %}">Profile</a>
+        <a href="{% url 'user:shopping_page' %}">Shopping</a> {% endcomment %}
+        {% comment %} <a href="{% url 'user:logout' %}">Logout</a>  {% endcomment %}
     </div>
 
     <!-- Shopping Content -->
@@ -27,8 +27,10 @@
                     <div class="book-card">
                         <img src="{{ book.image.url }}" alt="{{ book.name }}">
                         <p>{{ book.name }}</p>
-                        <p>Price: ${{ book.price }}</p>
-                        <a href="{% url 'product_detail' book.id %}" class="btn">View Details</a>
+                        <p>Price: ₹{{ book.price }}</p>
+                        <br>
+                        <a href="{% url 'user:product_detail' book.id %}" class="btn">View Details</a>
+
                     </div>
                 {% endfor %}
             </div>

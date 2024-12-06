@@ -31,10 +31,7 @@
                 <li class= "{% if request.path == About_url %} active {% endif %}"><a href="{% url 'home:About' %}">About</a></li>  
                 {% url "Contact" as Contact %}             
                 <li class= "{% if request.path == Contact %} active {% endif %}"><a href="{% url 'home:Contact' %}">Contact</a></li>
-                {% comment %} {% url "Shop" as Shop %}   {% endcomment %}
-                {% comment %} <li class= "{% if request.path == Shop %} active {% endif %}"><a href="{% url 'home:Shop' %}">shop</a></li> {% endcomment %}
-                {% comment %} {% url "dashboard" as dashboard %}  
-                <li class= "{% if request.path == dashboard %} active {% endif %}"><a href="{% url 'adminpanel:dashboard' %}">dashboard</a></li> {% endcomment %}
+                
             </ul>
             <div class="auth-buttons" id="nav-buttons">
 

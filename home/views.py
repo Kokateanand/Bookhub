@@ -1,10 +1,16 @@
 from django.shortcuts import render
+from adminpanel.models import Book, Author
 
 # Create your views here.
 
 
 def index(request):
-    return render(request, 'index.html')
+
+    books = Book.objects.all()
+    authors = Author.objects.all()
+    return render(request, 'index.html', {'books': books, 'authors': authors})
+ 
+
 
     # return HttpResponse ("this is the home page")
 

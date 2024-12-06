@@ -16,7 +16,7 @@
         {% for book in books %}
         <tr>
             <td>{{ forloop.counter }}</td>
-            <td><img src="{{ book.image.url }}" alt="Book Image"></td>
+            <td><img src="{{ book.image.url }}" alt="Book Image" style="height: 50px;"></td>
             <td>{{ book.name }}</td>
             <td>
                 <a href="{% url 'adminpanel:update_book' book.id %}">Update</a>

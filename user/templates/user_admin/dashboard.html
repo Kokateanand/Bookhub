@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +11,10 @@
 
     <!-- Navbar -->
     <div class="navbar">
-        <a href="{% url 'dashboard' %}">Dashboard</a>
-        <a href="{% url 'profile' %}">Profile</a>
-        <a href="{% url 'shopping_page' %}">Shopping</a>
-        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'user:dashboard' %}">Dashboard</a>
+        {% comment %} <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'shopping_page' %}">Shopping</a> {% endcomment %}
+        <a href="{% url 'user:logout' %}">Logout</a>
     </div>
 
     <!-- Dashboard Content -->
