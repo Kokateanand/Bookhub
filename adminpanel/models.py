@@ -43,7 +43,7 @@ class Author(models.Model):
 class Customer(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=15, unique=True , default='0000000000' ,null=False)
+    phone = models.CharField(max_length=15, unique=True)
     city = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -53,8 +53,15 @@ class Customer(models.Model):
     last_login = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)  # For active users
 
+
+    def save(self, *args, **kwargs):
+        if not self.password.startswith('pbkdf2_sha256$'):  # Check if already hashed
+            self.password = make_password(self.password)  # Hash the password
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
 
         
 

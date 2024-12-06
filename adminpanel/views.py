@@ -4,15 +4,52 @@ from .decorators import superuser_required
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.crypto import get_random_string
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseForbidden
+
 
 
 from .forms import CustomerForm , CategoryForm , AuthorForm  , WarehouseForm  ,BookForm
 
+def prevent_authenticated_access(view_func):
+    """
+    Middleware-like decorator to prevent authenticated users from accessing certain views.
+    """
+    def wrapper(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseForbidden("You are already logged in.")
+        return view_func(request, *args, **kwargs)
+    return wrapper
 
-# Dashboard
+
+def admin_login(request):
+    """
+    Custom login view for superusers in the admin panel.
+    """
+    if request.user.is_authenticated and request.user.is_superuser:
+        return redirect('adminpanel:dashboard')
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user and user.is_superuser:
+            login(request, user)
+            return redirect('adminpanel:dashboard')
+        else:
+            return render(request, 'adminpanel/login.html', {'error': 'Invalid credentials or not a superuser'})
+
+    return render(request, 'login.html')
+
+
 @login_required
 @superuser_required
 def dashboard(request):
+    """
+    Superuser-only dashboard view.
+    """
     return render(request, 'adminpanel/dashboard.html')
 
 
@@ -148,7 +185,7 @@ def add_customer(request):
         )
         messages.success(request, 'Customer added successfully!')
         return redirect('user:customers')
-    return render(request, 'user/add_customer.html')
+    return render(request, 'adminpanel/add_customer.html')
 
 
 def update_customer(request, id):

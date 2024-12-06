@@ -2,8 +2,72 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from adminpanel.models import Customer, Book, PurchaseHistory, Warehouse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import login as auth_login
+from adminpanel.decorators import auth
+from django.contrib.auth.backends import BaseBackend
+# from django.utils.http import url_has_allowed_host_and_scheme
+
+
+
+
+def login_view(request):
+    if request.user.is_authenticated:
+        messages.info(request, "You are already logged in.")
+        return redirect('user:shop')  # Redirect to the shop page if already logged in
+
+    if request.method == 'POST':
+        login_input = request.POST.get('login_input')  # Email or phone
+        password = request.POST.get('password')
+        next_url = request.GET.get('next')  # Get the next parameter from URL
+
+        # Find customer by email or phone
+        try:
+            customer = Customer.objects.get(email=login_input)  # Try to find by email first
+        except Customer.DoesNotExist:
+            try:
+                customer = Customer.objects.get(phone=login_input)  # Try to find by phone if email fails
+            except Customer.DoesNotExist:
+                messages.error(request, "No account found with that email or mobile number.")
+                return render(request, 'auth/login.html')
+
+        # Verify the password
+        if check_password(password, customer.password):  # Check if password matches
+            # If password is correct, log the user in
+            auth_login(request, customer)  # Log in the customer
+            messages.success(request, "Login successful!")
+
+            # Redirect to the next URL or the shop page
+            if next_url:
+                return redirect(next_url)
+            return redirect('user:shop')  # Default redirect to shop page
+        else:
+            messages.error(request, "Incorrect password.")
+            return render(request, 'auth/login.html')
+
+    return render(request, 'auth/login.html')
+
+
+
+class CustomerBackend(BaseBackend):
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        # Try to authenticate using email or phone
+        try:
+            user = Customer.objects.get(email=username)  # Try to find by email first
+        except Customer.DoesNotExist:
+            try:
+                user = Customer.objects.get(phone=username)  # Try to find by phone
+            except Customer.DoesNotExist:
+                return None  # No user found
+
+        if user and check_password(password, user.password):  # Verify password
+            return user
+        return None  # Return None if authentication fails
+
+
+
+
 
 @login_required
 def dashboard_view(request):
@@ -25,12 +89,16 @@ def dashboard_view(request):
         return redirect('login')
 
 
-@login_required
-def shopping_page_view(request):
-    books = Book.objects.all()
-    return render(request, 'user_admin/shopping_page.html', {
-        'books': books,
-    })
+
+# @auth
+def shop_view(request):
+    return render(request, 'user_admin/shopping_page.html')
+
+# def shopping_page_view(request):
+#     books = Book.objects.all()
+#     return render(request, 'user_admin/shopping_page.html', {
+#         'books': books,
+#     })
 
 
 @login_required
@@ -47,23 +115,39 @@ def product_detail_view(request, book_id):
         return redirect('user_admin/shopping_page')
 
 
-def login_view(request):
-    if request.method == 'POST':
-        login_input = request.POST.get('login_input')
-        password = request.POST.get('password')
 
-        try:
-            customer = Customer.objects.get(phone=login_input) if login_input.isdigit() else Customer.objects.get(email=login_input)
-            if check_password(password, customer.password):
-                request.session['customer_id'] = customer.id
-                messages.success(request, "Login successful!")
-                return redirect('dashboard')
-            else:
-                messages.error(request, "Incorrect password.")
-        except Customer.DoesNotExist:
-            messages.error(request, "No account found with that email or mobile number.")
 
-    return render(request, 'auth/login.html')
+# def login_view(request):
+#     if request.user.is_authenticated:
+#         messages.info(request, "You are already logged in.")
+#         return redirect('Shop')  # Redirect to shop page if already logged in
+
+#     if request.method == 'POST':
+#         login_input = request.POST.get('login_input')  # Email or mobile
+#         password = request.POST.get('password')
+
+#         try:
+#             user = Customer.objects.get(email=login_input)  # Try email first
+#         except Customer.DoesNotExist:
+#             try:
+#                 user = Customer.objects.get(phone=login_input)  # Then phone
+#             except Customer.DoesNotExist:
+#                 messages.error(request, "No account found with that email or mobile number.")
+#                 return render(request, 'auth/login.html')
+
+#         # Verify password
+#         if check_password(password, user.password):
+#             # Log the user in
+#             login(request, user)
+#             messages.success(request, "Login successful!")
+#             return redirect('Shop')  # Redirect to shop page
+#         else:
+#             messages.error(request, "Incorrect password.")
+#             return render(request, 'auth/login.html')
+
+#     return render(request, 'auth/login.html')
+
+
 
 
 def register_view(request):
@@ -101,16 +185,15 @@ def register_view(request):
         customer.save()
 
         messages.success(request, "You are registered successfully! Now you can log in.")
-        return redirect('login')
+        return redirect('user:login')
 
     return render(request, 'auth/register.html')
-
 
 
 def logout_view(request):
     request.session.flush()
     messages.success(request, "Logged out successfully.")
-    return redirect('login')
+    return redirect('user:login')
 
 
 

@@ -5,6 +5,10 @@ app_name = 'adminpanel'
 
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
+
+
+    path('login/', views.admin_login, name='login'),  # Admin login
+    path('dashboard/', views.dashboard, name='dashboard'),  # Admin dashboard
     
     # Categories
     path('categories/', views.categories, name='categories'),

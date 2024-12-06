@@ -31,14 +31,31 @@
                 <li class= "{% if request.path == About_url %} active {% endif %}"><a href="{% url 'home:About' %}">About</a></li>  
                 {% url "Contact" as Contact %}             
                 <li class= "{% if request.path == Contact %} active {% endif %}"><a href="{% url 'home:Contact' %}">Contact</a></li>
-                {% url "Shop" as Shop %}  
-                <li class= "{% if request.path == Shop %} active {% endif %}"><a href="{% url 'home:Shop' %}">shop</a></li>
-                {% url "dashboard" as dashboard %}  
-                <li class= "{% if request.path == dashboard %} active {% endif %}"><a href="{% url 'adminpanel:dashboard' %}">dashboard</a></li>
+                {% comment %} {% url "Shop" as Shop %}   {% endcomment %}
+                {% comment %} <li class= "{% if request.path == Shop %} active {% endif %}"><a href="{% url 'home:Shop' %}">shop</a></li> {% endcomment %}
+                {% comment %} {% url "dashboard" as dashboard %}  
+                <li class= "{% if request.path == dashboard %} active {% endif %}"><a href="{% url 'adminpanel:dashboard' %}">dashboard</a></li> {% endcomment %}
             </ul>
             <div class="auth-buttons" id="nav-buttons">
-                <a href="{% url 'user:login' %}" class="login-btn">Login</a>
+
+
+                <a href="{% url 'user:login' %}" class="login-btn">User Login</a>
+                <a href="{% url 'adminpanel:login' %}" class="login-btn">Admin Login</a>
                 <a href="{% url 'user:register' %}" class="signup-btn">Sign Up</a>
+{% comment %} 
+                <div class="custom-dropdown">
+                    <button class="login-btn">Choose Login Method</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'user:login' %}" class="login-btn_user">User Login</a>
+                        <a href="{% url 'adminpanel:login' %}" class="login-btn_user">Admin Login</a>
+                    </div>
+                </div>
+                
+                <a href="{% url 'user:register' %}" class="signup-btn">Sign Up</a> {% endcomment %}
+                
+
+
+                
             </div>
         </div>
 

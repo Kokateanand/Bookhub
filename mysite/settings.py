@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -53,6 +55,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+
+    # 'mysite.middleware.RestrictLoginSignupMiddleware',
+    'mysite.middleware.RestrictLoginSignupMiddleware',
+
+
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -73,7 +81,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mysite.wsgi.application'
+# WSGI_APPLICATION = 'mysite.wsgi.application'
+ASGI_APPLICATION = 'mysite.asgi.application'
 
 
 # Database
@@ -135,3 +144,27 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
+
+from django.http import HttpResponseRedirect
+
+class RestrictLoginSignupMiddleware:
+    """
+    Middleware to restrict logged-in users from accessing login or signup pages.
+    """
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        if request.path in ['/adminpanel/login', '/user/auth/login/', '/user/auth/register/'] and request.user.is_authenticated:
+            return HttpResponseRedirect('/adminpanel/dashboard')
+        return self.get_response(request)
+    
+
+    LOGIN_URL = '/user/login/'
+
+
+
+
